@@ -4,6 +4,7 @@ import json
 import os
 import re
 from datetime import datetime
+import threading
 
 app = Flask(__name__)
 
@@ -22,6 +23,10 @@ OPENROUTER_API_KEY = os.environ.get('OPENROUTER_KEY', 'your_key_here')
 # Хранилище сессий
 user_sessions = {}
 user_dialog_history = {}
+
+# Таймеры для отслеживания неактивности
+user_silence_timers = {}
+SILENCE_MINUTES = 20
 
 # ==================== ЯЗЫКИ И ПЕРЕВОДЫ ====================
 LANGUAGES = {
@@ -126,7 +131,7 @@ COLLECTION_QUESTIONS = {
         'zh': [
             ('car_brand', '1️⃣ 汽车品牌和型号？（例如：Toyota Camry 2020）'),
             ('car_value', '2️⃣ 市场价值（美元）？（例如：15000）'),
-            ('driver_type', '3️⃣ 驾驶员年龄？（例如：35）'),
+            ('driver_age', '3️⃣ 驾驶员年龄？（例如：35）'),
             ('usage_type', '4️⃣ 使用类型？（个人/出租车/租赁）')
         ]
     },
@@ -336,6 +341,81 @@ def send_insurance_menu(phone, lang):
     
     send_whatsapp_message(phone, message, buttons)
     send_whatsapp_message(phone, "...", buttons2)
+
+# ==================== ТАЙМЕР И ОТЧЁТ МЕНЕДЖЕРУ ====================
+def schedule_silence_report(phone):
+    """Запуск таймера на 20 минут тишины"""
+    # Отменяем предыдущий таймер если есть
+    if phone in user_silence_timers:
+        try:
+            user_silence_timers[phone].cancel()
+        except:
+            pass
+    
+    # Создаём новый таймер
+    timer = threading.Timer(SILENCE_MINUTES * 60, send_conversation_report, args=[phone])
+    timer.daemon = True
+    user_silence_timers[phone] = timer
+    timer.start()
+    print(f"⏱️ Таймер запущен для {phone} на {SILENCE_MINUTES} минут")
+
+def send_conversation_report(phone):
+    """Отправка отчёта менеджеру после 20 минут тишины"""
+    print(f"⏰ Таймер сработал для {phone}, проверка истории...")
+    
+    if phone not in user_dialog_history or not user_dialog_history[phone]:
+        print(f"⚠️ Нет истории для {phone}")
+        return
+    
+    # Формируем историю диалога
+    dialog_text = ""
+    for msg in user_dialog_history[phone][-30:]:
+        time_str = msg.get('time', '')[:19].replace('T', ' ')
+        role = "👤 КЛИЕНТ" if msg['role'] == 'user' else "🤖 БОТ"
+        content = msg['content'][:150]
+        if len(msg['content']) > 150:
+            content += "..."
+        dialog_text += f"[{time_str}] {role}:\n{content}\n\n"
+    
+    session = user_sessions.get(phone, {})
+    data = session.get('data', {})
+    
+    # Данные клиента
+    data_text = ""
+    if data:
+        for key, value in data.items():
+            data_text += f"• {key}: {value}\n"
+    else:
+        data_text = "Нет данных"
+    
+    # Тип страхования
+    ins_type = session.get('insurance_type', 'не выбран')
+    
+    # Язык
+    lang = session.get('lang', 'не определён')
+    
+    message = f"""🚨 *КЛИЕНТ МОЛЧИТ {SILENCE_MINUTES}+ МИНУТ*
+
+📱 *Клиент:* +{phone}
+🕐 *Время:* {datetime.now().strftime('%d.%m.%Y %H:%M')}
+🌐 *Язык:* {lang}
+📝 *Тип страхования:* {ins_type}
+
+*СОБРАННЫЕ ДАННЫЕ:*
+{data_text}
+
+*ИСТОРИЯ ДИАЛОГА:*
+{dialog_text}
+
+⚡ *РЕКОМЕНДАЦИЯ:* Перезвоните клиенту для завершения оформления!
+
+📞 *Контакт:* {ARAY_PHONE_DISPLAY}"""
+    
+    success = send_whatsapp_message(ARAY_PHONE, message)
+    if success:
+        print(f"✅ Отчёт отправлен менеджеру для {phone}")
+    else:
+        print(f"❌ Не удалось отправить отчёт для {phone}")
 
 # ==================== ИИ ФУНКЦИЯ ====================
 def get_ai_response(user_message, history, lang='ru'):
@@ -879,6 +959,9 @@ def webhook():
             message = value["messages"][0]
             phone = message.get("from")
             
+            # === ЗАПУСКАЕМ ТАЙМЕР ПРИ КАЖДОМ СООБЩЕНИИ ===
+            schedule_silence_report(phone)
+            
             # Проверяем тип сообщения (текст или кнопка)
             msg_type = message.get("type")
             
@@ -1221,5 +1304,6 @@ if __name__ == "__main__":
     print(f"📞 Менеджер: {ARAY_PHONE_DISPLAY}")
     print(f"💰 Кэшбэк: 10%")
     print(f"🌍 Языки: RU, KY, EN, TR, ZH")
+    print(f"⏱️ Таймер молчания: {SILENCE_MINUTES} минут")
     print("="*60)
     app.run(debug=False, host="0.0.0.0", port=5000)
