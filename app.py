@@ -212,7 +212,7 @@ SYSTEM_PROMPT = """Ты — AI-ассистент ОсОО "Арай групп"
 
 3. ЭМОДЗИ: Используй умеренно — 1-2 эмодзи на сообщение.
 
-4. КЭШБЭК 10%: Упоминай эксклюзивный кэшбэк 10% от ОсОО "Арай групп" до 31 августа 2026 года!
+4. КЭШБЭК : Упоминай эксклюзивный кэшбэк от ОсОО "Арай групп" до 31 августа 2026 года!
 
 5. ПРОДУКТЫ И НАПРАВЛЕНИЯ:
    - ОСАГО: от 1,800 сом/год (обязательное автострахование)
@@ -502,7 +502,7 @@ def fallback_response(text, lang='ru'):
     
     responses = {
         'ru': {
-            'price_osago': """💰 *ОСАГО — от 1,800 сом/год*
+            'price_osago': """💰 *ОСАГО*
 
 Для точного расчёта нужны:
 • Стаж вождения
@@ -510,9 +510,9 @@ def fallback_response(text, lang='ru'):
 • Объём двигателя
 • Марка авто
 
-Напишите ОФОРМИТЬ ОСАГО, чтобы собрать данные. Кэшбэк 10%! 💎""",
+Напишите ОФОРМИТЬ ОСАГО, чтобы собрать данные. Кэшбэк есть! 💎""",
             
-            'price_kasko': """💰 *КАСКО — от 15,000 сом/год*
+            'price_kasko': """💰 *КАСКО *
 
 Для расчёта нужны:
 • Марка и модель авто
@@ -520,7 +520,7 @@ def fallback_response(text, lang='ru'):
 • Возраст водителя
 • Тип использования
 
-Напишите ОФОРМИТЬ КАСКО для заявки. Кэшбэк 10%! 💎""",
+Напишите ОФОРМИТЬ КАСКО для заявки. 💎""",
             
             'price_travel': """✈️ *Страхование путешествий*
 
@@ -530,7 +530,7 @@ def fallback_response(text, lang='ru'):
 • Возраст путешественника
 • Цель поездки
 
-Напишите ОФОРМИТЬ ПУТЕШЕСТВИЕ для заявки. Кэшбэк 10%! 💎""",
+Напишите ОФОРМИТЬ ПУТЕШЕСТВИЕ для заявки. 💎""",
             
             'price_property': """🏠 *Страхование имущества*
 
@@ -540,7 +540,7 @@ def fallback_response(text, lang='ru'):
 • Год постройки
 • Адрес
 
-Напишите ОФОРМИТЬ ИМУЩЕСТВО для заявки. Кэшбэк 10%! 💎""",
+Напишите ОФОРМИТЬ ИМУЩЕСТВО для заявки. 💎""",
             
             'hello': """👋 Здравствуйте! Я ассистент ОсОО «Арай групп» — официального агента «Бакай Иншуренс».
 
@@ -550,7 +550,7 @@ def fallback_response(text, lang='ru'):
 ✈️ Страхование путешествий
 🏠 Страхование имущества
 
-*Кэшбэк 10% до 31 августа 2026!*
+*Кэшбэк есть*
 
 Выберите тип страхования или задайте вопрос 😊""",
             
@@ -559,7 +559,7 @@ def fallback_response(text, lang='ru'):
 Телефон/WhatsApp: {ARAY_PHONE_DISPLAY}
 График: Пн-Вс 9:00-18:00
 
-Кэшбэк 10% на все полисы! 💰""",
+Кэшбэк на все полисы! 💰""",
             
             'default': """Я помогу с оформлением страховки через «Бакай Иншуренс».
 
@@ -575,60 +575,60 @@ def fallback_response(text, lang='ru'):
         'ky': {
             'price_osago': """💰 *ОСАГО — 1,800 сом/жылдан*
 
-Такыба үчүн керек:
-• Айдоо тажрыйба
+Камсыздандырууннун баасын эсептөө үчүн  маалымат топтоо:
+• Айдоочулук тажрыйба мөөнөтү
 • Унаа номери
 • Кыймылдаткыч көлөмү
 • Марка
 
-ТАПШЫРМА ОСАГО деп жазыңыз. Кэшбэк 10%! 💎""",
+ТАПШЫРМА ОСАГО деп жазыңыз.  💎""",
             
-            'price_kasko': """💰 *КАСКО — 15,000 сом/жылдан*
+            'price_kasko': """💰 *КАСКО*
 
-Такыба үчүн керек:
+Камсыздандырууннун баасын эсептөө үчүн  маалымат топтоо:
 • Унаа маркасы
 • Базар баасы
 • Айдоочу жашы
 • Колдонуу түрү
 
-ТАПШЫРМА КАСКО деп жазыңыз. Кэшбэк 10%! 💎""",
+ТАПШЫРМА КАСКО деп жазыңыз. 💎""",
             
             'price_travel': """✈️ *Саякат камсыздоо*
 
-Такыба үчүн керек:
+Камсыздандырууннун баасын эсептөө үчүн  маалымат топтоо:
 • Бара турган өлкө
 • Сапар убактысы
 • Саякатчы жашы
 • Сапар максаты
 
-ТАПШЫРМА САЯКАТ деп жазыңыз. Кэшбэк 10%! 💎""",
+ТАПШЫРМА САЯКАТ деп жазыңыз. 💎""",
             
             'price_property': """🏠 *Мүлк камсыздоо*
 
-Такыба үчүн керек:
+Камсыздандырууннун баасын эсептөө үчүн  маалымат топтоо:
 • Мүлк түрү
 • Аянты
 • Курулган жылы
 • Дарек
 
-ТАПШЫРМА МҮЛК деп жазыңыз. Кэшбэк 10%! 💎""",
+ТАПШЫРМА МҮЛК деп жазыңыз.  💎""",
             
             'hello': f"""👋 Саламатсызбы! Мен «Арай групп» ЖЧКнун ассистентимин.
 
 Сунуштар:
-🚗 ОСАГО 1,800 сом/жылдан
-🛡️ КАСКО 15,000 сом/жылдан
+🚗 ОСАГО 
+🛡️ КАСКО 
 ✈️ Саякат камсыздоо
 🏠 Мүлк камсыздоо
 
-Кэшбэк 10% 2026-жылдын 31-августуна чейин! 💰""",
+Кэшбэк бар! 💰""",
             
-            'contact': f"""📞 «Арай групп» ЖОО
+            'contact': f"""📞 «Арай групп» ЖЧК
 
 Телефон/WhatsApp: {ARAY_PHONE_DISPLAY}
 Иш убактысы: Дш-Жм 9:00-18:00
 
-Бардык полистерге 10% кэшбэк! 💰""",
+Бардык полистерге кэшбэк бар! 💰""",
             
             'default': """Мен «Бакай Иншуренс» аркылуу камсыздоо менен жардам берем.
 
@@ -642,7 +642,7 @@ def fallback_response(text, lang='ru'):
         },
         
         'en': {
-            'price_osago': """💰 *OSAGO — from 1,800 KGS/year*
+            'price_osago': """💰 *OSAGO *
 
 Need for calculation:
 • Driving experience
@@ -650,9 +650,9 @@ Need for calculation:
 • Engine volume
 • Car brand
 
-Write APPLY OSAGO to start. 10% cashback! 💎""",
+Write APPLY OSAGO to start.  💎""",
             
-            'price_kasko': """💰 *KASKO — from 15,000 KGS/year*
+            'price_kasko': """💰 *KASKO *
 
 Need for calculation:
 • Car brand & model
@@ -660,7 +660,7 @@ Need for calculation:
 • Driver age
 • Usage type
 
-Write APPLY KASKO to start. 10% cashback! 💎""",
+Write APPLY KASKO to start.  💎""",
             
             'price_travel': """✈️ *Travel Insurance*
 
@@ -670,7 +670,7 @@ Need for calculation:
 • Traveler age
 • Trip purpose
 
-Write APPLY TRAVEL to start. 10% cashback! 💎""",
+Write APPLY TRAVEL to start. 💎""",
             
             'price_property': """🏠 *Property Insurance*
 
@@ -680,7 +680,7 @@ Need for calculation:
 • Year built
 • Address
 
-Write APPLY PROPERTY to start. 10% cashback! 💎""",
+Write APPLY PROPERTY to start. 💎""",
             
             'hello': f"""👋 Hello! I'm Aray Group assistant, official agent of Bakai Insurance.
 
@@ -690,14 +690,14 @@ We offer:
 ✈️ Travel insurance
 🏠 Property insurance
 
-10% cashback until Aug 31, 2026! 💰""",
+ 💰""",
             
             'contact': f"""📞 Aray Group LLC
 
 Phone/WhatsApp: {ARAY_PHONE_DISPLAY}
 Hours: Mon-Sun 9:00-18:00
 
-10% cashback on all policies! 💰""",
+ 💰""",
             
             'default': """I'll help you get insurance through Bakai Insurance.
 
@@ -711,7 +711,7 @@ Write APPLY 🛡️"""
         },
         
         'tr': {
-            'price_osago': """💰 *OSAGO — 1,800 KGS/yıldan*
+            'price_osago': """💰 *OSAGO*
 
 Hesaplama için gerekli:
 • Sürücü deneyimi
@@ -719,9 +719,9 @@ Hesaplama için gerekli:
 • Motor hacmi
 • Araç markası
 
-BAŞVUR OSAGO yazın. 10% cashback! 💎""",
+BAŞVUR OSAGO yazın. 💎""",
             
-            'price_kasko': """💰 *KASKO — 15,000 KGS/yıldan*
+            'price_kasko': """💰 *KASKO*
 
 Hesaplama için gerekli:
 • Araç marka/model
@@ -729,7 +729,7 @@ Hesaplama için gerekli:
 • Sürücü yaşı
 • Kullanım tipi
 
-BAŞVUR KASKO yazın. 10% cashback! 💎""",
+BAŞVUR KASKO yazın. 💎""",
             
             'price_travel': """✈️ *Seyahat Sigortası*
 
@@ -739,7 +739,7 @@ Hesaplama için gerekli:
 • Seyahatçi yaşı
 • Seyahat amacı
 
-BAŞVUR SEYAHAT yazın. 10% cashback! 💎""",
+BAŞVUR SEYAHAT yazın. 💎""",
             
             'price_property': """🏠 *Mülk Sigortası*
 
@@ -749,24 +749,24 @@ Hesaplama için gerekli:
 • Yapım yılı
 • Adres
 
-BAŞVUR MÜLK yazın. 10% cashback! 💎""",
+BAŞVUR MÜLK yazın. 💎""",
             
             'hello': f"""👋 Merhaba! Ben Aray Group asistanıyım, Bakai Insurance resmi acentesi.
 
 Tekliflerimiz:
-🚗 OSAGO 1,800 KGS/yıldan
-🛡️ KASKO 15,000 KGS/yıldan
+🚗 OSAGO 
+🛡️ KASKO 
 ✈️ Seyahat sigortası
 🏠 Mülk sigortası
 
-%10 cashback 31 Ağustos 2026'ya kadar! 💰""",
+💰""",
             
             'contact': f"""📞 Aray Group LLC
 
 Telefon/WhatsApp: {ARAY_PHONE_DISPLAY}
 Çalışma saatleri: Pzt-Paz 9:00-18:00
 
-Tüm poliçelerde %10 cashback! 💰""",
+Tüm poliçelerde cashback var! 💰""",
             
             'default': """Bakai Insurance aracılığıyla sigorta yaptırmanıza yardımcı olacağım.
 
@@ -788,7 +788,7 @@ BAŞVUR yazın 🛡️"""
 • 发动机排量
 • 汽车品牌
 
-写"申请车辆强制险"开始。10%返现！💎""",
+写"申请车辆强制险"开始。返现！💎""",
             
             'price_kasko': """💰 *车辆全险 — 每年15,000索姆起*
 
@@ -798,7 +798,7 @@ BAŞVUR yazın 🛡️"""
 • 驾驶员年龄
 • 使用类型
 
-写"申请车辆全险"开始。10%返现！💎""",
+写"申请车辆全险"开始。返现！💎""",
             
             'price_travel': """✈️ *旅行保险*
 
@@ -808,7 +808,7 @@ BAŞVUR yazın 🛡️"""
 • 旅行者年龄
 • 旅行目的
 
-写"申请旅行险"开始。10%返现！💎""",
+写"申请旅行险"开始。返现！💎""",
             
             'price_property': """🏠 *财产保险*
 
@@ -818,7 +818,7 @@ BAŞVUR yazın 🛡️"""
 • 建造年份
 • 地址
 
-写"申请财产险"开始。10%返现！💎""",
+写"申请财产险"开始。返现！💎""",
             
             'hello': f"""👋 您好！我是Aray Group的助理，Bakai Insurance的官方代理。
 
@@ -828,14 +828,14 @@ BAŞVUR yazın 🛡️"""
 ✈️ 旅行保险
 🏠 财产保险
 
-10%返现优惠至2026年8月31日！💰""",
+返现优惠至2026年8月31日！💰""",
             
             'contact': f"""📞 Aray Group有限责任公司
 
 电话/WhatsApp：{ARAY_PHONE_DISPLAY}
 工作时间：周一至周日 9:00-18:00
 
-所有保单10%返现！💰""",
+所有保单 返现！💰""",
             
             'default': """我可以帮您通过Bakai Insurance办理保险。
 
@@ -1052,7 +1052,7 @@ def process_message(phone, text, session):
 
 Я — ассистент ОсОО «Арай групп», официального агента «Бакай Иншуренс» (15 лет опыта).
 
-💰 *Кэшбэк 10%* на все полисы до 31 августа 2026!
+💰 *Кэшбэк* на все полисы до 31 августа 2026!
 
 Выберите тип страхования 👇""",
                     
@@ -1060,15 +1060,15 @@ def process_message(phone, text, session):
 
 Мен «Арай групп» ЖЧКнун ассистентимин, «Бакай Иншуренс»тин расмий агенти (15 жыл тажрыйба).
 
-💰 *10% кэшбэк* бардык полистерге 2026-жылдын 31-августуна чейин!
+💰 бардык полистерге 2026-жылдын 31-августуна чейин *кэшбэк*!
 
 Камсыздоо түрүн тандаңыз 👇""",
                     
                     'en': f"""🎉 Welcome!
 
-I'm Aray Group assistant, official agent of Bakai Insurance (15 years experience).
+I'm Aray Group assistant, official agent of Bakai Insurance (15 years of experience).
 
-💰 *10% cashback* on all policies until August 31, 2026!
+💰 *cashback* on all policies until August 31, 2026!
 
 Select insurance type 👇""",
                     
@@ -1076,7 +1076,7 @@ Select insurance type 👇""",
 
 Ben Aray Group asistanı, Bakai Insurance resmi acentesi (15 yıl deneyim).
 
-💰 *%10 cashback* tüm poliçelerde 31 Ağustos 2026'ya kadar!
+💰 *cashback* tüm sigorta türlerinde 31 Ağustos 2026'ya kadar!
 
 Sigorta türünü seçin 👇""",
                     
@@ -1084,7 +1084,7 @@ Sigorta türünü seçin 👇""",
 
 我是Aray Group的助理，Bakai Insurance的官方代理（15年经验）。
 
-💰 *10%返现* 所有保单至2026年8月31日！
+💰 *返现* 所有保单至2026年8月31日！
 
 选择保险类型 👇"""
                 }
@@ -1116,7 +1116,7 @@ Sigorta türünü seçin 👇""",
 
 {INSURANCE_TYPES[insurance_type][lang]['desc']}
 
-Отлично! Соберу информацию для точного расчёта. Кэшбэк 10% гарантирован! 💰
+Отлично! Соберу информацию для точного расчёта. Кэшбэк гарантирован! 💰
 
 {first_question}""",
                     
@@ -1124,7 +1124,7 @@ Sigorta türünü seçin 👇""",
 
 {INSURANCE_TYPES[insurance_type][lang]['desc']}
 
-Сонун! Такыба үчүн маалымат чогултайын. 10% кэшбэк кепилденген! 💰
+Сонун! Камсыздандыруу үчүн маалымат чогултайын. кэшбэк кепилденген! 💰
 
 {first_question}""",
                     
@@ -1132,7 +1132,7 @@ Sigorta türünü seçin 👇""",
 
 {INSURANCE_TYPES[insurance_type][lang]['desc']}
 
-Great! I'll collect information for accurate calculation. 10% cashback guaranteed! 💰
+Great! I'll collect information for accurate calculation. cashback guaranteed! 💰
 
 {first_question}""",
                     
@@ -1140,7 +1140,7 @@ Great! I'll collect information for accurate calculation. 10% cashback guarantee
 
 {INSURANCE_TYPES[insurance_type][lang]['desc']}
 
-Harika! Hesaplama için bilgi toplayacağım. %10 cashback garantili! 💰
+Harika! Hesaplama için bilgi toplayacağım. cashback garantili! 💰
 
 {first_question}""",
                     
@@ -1148,7 +1148,7 @@ Harika! Hesaplama için bilgi toplayacağım. %10 cashback garantili! 💰
 
 {INSURANCE_TYPES[insurance_type][lang]['desc']}
 
-很好！我来收集信息以准确计算。10%返现保证！💰
+很好！我来收集信息以准确计算。返现保证！💰
 
 {first_question}"""
                 }
@@ -1246,7 +1246,7 @@ def process_data_collection(phone, text, session):
 
 Все данные переданы менеджеру ОсОО «Арай групп».
 
-Он перезвонит вам в течение 15 минут для точного расчёта и оформления с кэшбэком 10%! 💰
+Он перезвонит вам в течение 15 минут для точного расчёта и оформления с кэшбэком! 💰
 
 📞 {ARAY_PHONE_DISPLAY}
 
@@ -1256,7 +1256,7 @@ def process_data_collection(phone, text, session):
 
 Бардык маалыматтар «Арай групп» менеджерине жөнөтүлдү.
 
-Ал 10% кэшбэк менен так эсептөө үчүн 15 мүнөт ичинде чалат! 💰
+Ал, кэшбэк менен дагы тагыраак эсептөө үчүн 15 мүнөт ичинде чалат! 💰
 
 📞 {ARAY_PHONE_DISPLAY}
 
@@ -1266,7 +1266,7 @@ def process_data_collection(phone, text, session):
 
 All data forwarded to Aray Group manager.
 
-He'll call within 15 minutes for exact calculation with 10% cashback! 💰
+He'll call within 15 minutes for exact calculation with cashback! 💰
 
 📞 {ARAY_PHONE_DISPLAY}
 
@@ -1276,7 +1276,7 @@ Need help with anything else? 😊""",
 
 Tüm bilgiler Aray Group yöneticisine iletildi.
 
-15 dakika içinde %10 cashback ile hesaplama için arayacak! 💰
+15 dakika içinde için arayacak! 💰
 
 📞 {ARAY_PHONE_DISPLAY}
 
@@ -1286,7 +1286,7 @@ Başka bir konuda yardım ister misiniz? 😊""",
 
 所有数据已转给Aray Group经理。
 
-他将在15分钟内致电进行准确计算，享受10%返现！💰
+他将在15分钟内致电进行准确计算，享受 返现！💰
 
 📞 {ARAY_PHONE_DISPLAY}
 
@@ -1302,7 +1302,7 @@ if __name__ == "__main__":
     print("Официальный агент Бакай Иншуренс")
     print("="*60)
     print(f"📞 Менеджер: {ARAY_PHONE_DISPLAY}")
-    print(f"💰 Кэшбэк: 10%")
+    print(f"💰 Кэшбэк: ")
     print(f"🌍 Языки: RU, KY, EN, TR, ZH")
     print(f"⏱️ Таймер молчания: {SILENCE_MINUTES} минут")
     print("="*60)
